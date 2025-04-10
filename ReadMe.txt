@@ -1,0 +1,1 @@
+This is a browser based space invaders game.
