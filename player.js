@@ -11,7 +11,6 @@ export class Player {
         document.addEventListener("keydown",this.keyDown);
         document.addEventListener("keyup",this.keyUp);
     }
-
     
 //key event handlers
     keyDown(event){
