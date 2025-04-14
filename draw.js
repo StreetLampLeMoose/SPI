@@ -6,8 +6,10 @@ import {Player} from "./player.js";
 
 export default function draw() {
     let game = document.getElementById("game")
+    const ctx = game.getContext("2d");
     let playerBullet = 1; //placeholder
-    const player = new Player(game, 5, playerBullet);
-    
+    const player = new Player(game, 5, playerBullet); // this should be its own function
+    player.move();
+    ctx.drawImage(player.x, player.y);
     }
 //constructors for the enemy and other bullets go here TODO

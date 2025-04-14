@@ -70,5 +70,11 @@ export class Player {
             this.x = this.canvas.width;
         }
     }
+    move(){
+        this.moveRight();
+        this.moveLeft();
+        this.collisionWithWalls();
+    }
+
 
 } 
