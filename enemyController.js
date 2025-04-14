@@ -2,18 +2,18 @@
 
 enemyPositions =[{x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}]; //placeholder for enemy positions
 
-enemiesStart(){ //sets the start position of the enemies
+function enemiesStart(){ //sets the start position of the enemies
 
 };
-enemyMove(){ //move the enemies
+function enemyMove(){ //move the enemies
 
 };
 
-collisionWithWalls(){ //check for wall collisions
+function collisionWithWalls(){ //check for wall collisions
 };
-collisionWithPlayer(){ //check for player collisions
+function collisionWithPlayer(){ //check for player collisions
 };
 
-collisionWithPlayerBullet(){ //check for player bullet collisions
+function collisionWithPlayerBullet(){ //check for player bullet collisions
 
 };
