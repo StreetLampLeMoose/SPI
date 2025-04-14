@@ -12,6 +12,10 @@ export class Player {
         document.addEventListener("keyup",this.keyUp);
     }
     
+    playerStart(){ //sets players start position
+
+    }
+
 //key event handlers
     keyDown(event){
         if (event.code == "ArrowRight"){

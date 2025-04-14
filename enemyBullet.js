@@ -1,1 +1,1 @@
-//this will control the behavior of the enemay bullets
+//this will control the behavior of the enemy bullets
