@@ -5,29 +5,29 @@ import {Player} from "./player.js";
 //import EnemyBullet from "./enemyBullet.js";
 const ctx = game.getContext("2d");
 export default function draw() {
-    let game = document.getElementById("game")
+    let game = document.getElementById("game");
     let playerBullet = 1; //placeholder
     
-    }
+    };
 
-    gameStart(){ //starts the game, draws initial player and enemy positions
+    function gameStart(){ //starts the game, draws initial player and enemy positions
 
-    }
+    };
 
-    drawPlayer(){
+    function drawPlayer(){
         const player = new Player(game, 5, playerBullet); 
         player.move();
         ctx.drawImage(player.x, player.y);
-    }
+    };
 
-    drawEnemies(){ //draws the enemies on the screen 
+    function drawEnemies(){ //draws the enemies on the screen 
         //
-    }
+    };
 
-    drawEnemyBullets(){ //draws enemy bultes on the screen
+    function drawEnemyBullets(){ //draws enemy bultes on the screen
 
-    }
+    };
 
-    drawPlayerBullets(){ //draws player bullests on the screen
+    function drawPlayerBullets(){ //draws player bullests on the screen
 
-    }
+    };
