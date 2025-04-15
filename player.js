@@ -3,6 +3,7 @@ export class Player {
     right = false;
     left = false;
     shoot = false;
+   
     constructor(canvas,velocity,playerBullet){
         this.canvas = canvas;
         this.x = canvas.width/2;
@@ -52,11 +53,13 @@ export class Player {
     moveRight(){
         if (this.right === true) {
             this.x += this.velocity;
+            this.right === false;
         }
     }
     moveLeft(){
         if(this.left === true){
             this.x -= this.velocity;
+            this.left === false;
         }
     }
 //shooting handler
