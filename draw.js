@@ -8,7 +8,6 @@ let playerBullet = 1;
  //placeholder for playerBullet
 export default function draw() {
     
-    //testDraw(); //placeholder
     drawPlayer();
     requestAnimationFrame(draw); //calls the draw function again to create an animation loop
     };

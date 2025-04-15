@@ -7,14 +7,12 @@ export class Player {
     constructor(canvas,velocity,playerBullet){
         this.canvas = canvas;
         this.x = canvas.width/2;
-        this.y = 50;
+        this.y = canvas.height - 50; 
         this.velocity = velocity;
+        this.keyDown = this.keyDown.bind(this);
+        this.keyUp = this.keyUp.bind(this);
         document.addEventListener("keydown",this.keyDown);
         document.addEventListener("keyup",this.keyUp);
-    }
-    
-    playerStart(){ //sets players start position
-
     }
 
 //key event handlers
@@ -51,20 +49,20 @@ export class Player {
 
 //movement handlers
     moveRight(){
-        if (this.right === true) {
+        if (this.right == true) {
             this.x += this.velocity;
             this.right === false;
         }
     }
     moveLeft(){
-        if(this.left === true){
+        if(this.left == true){
             this.x -= this.velocity;
             this.left === false;
         }
     }
 //shooting handler
     handleShoot(){
-        if(this.shoot === true){
+        if(this.shoot == true){
             this.playerBullet(this.x,this.y);
         }
     }
