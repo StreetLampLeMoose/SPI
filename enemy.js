@@ -12,10 +12,19 @@ export class Enemy {
     
 
     move(){ //controls movement of the enemy
-        if (this.x >= this.canvas.width - 50 || this.x <= 50) {
-            this.velocity = -this.velocity;
-            this.moveDown() //reverse direction if hit wall
+        if (this.x >= this.canvas.width - 50 ) { //need to fix this. It switches everytime need sto switch once and run
+            this.x = this.canvas.width - 51;
+            this.velocity = -this.velocity //if the enemy is at the right wall, stop moving right
+        }else if(this.x <= 0){ //if the enemy is at the left wall, stop moving left
+            this.x = 1;
+            this.velocity = -this.velocity //if the enemy is at the left wall, stop moving left
         }
+
+        if(this.moveDownTimer > 0){ //if the enemy is not at the bottom of the screen, move down
+            this.moveDown();
+            return;    
+        }
+
         if(this.velocity >0){
             this.moveRight();
         }
@@ -33,10 +42,8 @@ export class Enemy {
     }
 
     moveDown(){
-        while (this.moveDownTimer > 0){
             this.moveDownTimer--;
-            this.y -= this.velocity;
-        }
+            this.y += 5;
     }
 
     shoot(){ //controls how the enemy shoots
