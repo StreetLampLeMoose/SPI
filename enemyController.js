@@ -1,19 +1,38 @@
 //This module will track the postitions of multiple enemies 
+import {Enemy} from "./enemy.js";
+//import {forEach} from "./utils.js"; //import forEach function from utils.js
 
-enemyPositions =[{x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}]; //placeholder for enemy positions
+export class enemyController {
+    constructor(canvas){
+        this.canvas = canvas;
+        this.enemyBullet = 1;
+    }
+    
+    enemiesStart(){ //sets the start position of the enemies
+        const enemyPositions = [
+            { x: 50, y: 50 },
+            { x: 150, y: 50 },
+            { x: 250, y: 50 },
+            { x: 350, y: 50 },
+        ]
 
-function enemiesStart(){ //sets the start position of the enemies
+        this.enemies = enemyPositions.map((enemy) => {
+            return new Enemy(this.canvas, 5, this.enemyBullet, enemy.x, enemy.y);
+        });
+    };
 
-};
-function enemyMove(){ //move the enemies
+    enemyMove(){ //move the enemies
+        this.enemies.forEach((enemy) => {
+            enemy.move(); //move the enemy
+        });
+    };
 
-};
+    collisionWithWalls(){ //check for wall collisions
+    };
+    collisionWithPlayer(){ //check for player collisions
+    };
 
-function collisionWithWalls(){ //check for wall collisions
-};
-function collisionWithPlayer(){ //check for player collisions
-};
+    collisionWithPlayerBullet(){ //check for player bullet collisions
 
-function collisionWithPlayerBullet(){ //check for player bullet collisions
-
-};
+    };
+}
