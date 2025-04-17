@@ -24,8 +24,8 @@ export default function draw() {
         const playerImage= new Image();
         playerImage.src = "./img/player.png";         
         player.move();
-        playerImage.onload = () => {  
-            ctx.clearRect(0, 0, game.width, game.height); //clears the screen
+        playerImage.onload = () => { 
+            ctx.clearRect(0, 0, game.width, game.height); //clears the canvas before drawing the new frame 
             ctx.drawImage(playerImage,player.x,player.y); //draws the player image at the new position
         };
     };
