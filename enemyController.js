@@ -10,10 +10,7 @@ export class enemyController {
     
     enemiesStart(){ //sets the start position of the enemies
         const enemyPositions = [
-            { x: 50, y: 50 },
-            { x: 150, y: 50 },
-            { x: 250, y: 50 },
-            { x: 350, y: 50 },
+            { x: 50, y: 50 }
         ]
 
         this.enemies = enemyPositions.map((enemy) => {

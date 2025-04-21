@@ -6,29 +6,23 @@ export class Enemy {
         this.y= y;
         this.canvas = canvas;
         this.velocity = velocity;
-        this.moveDownTimer = 30;
+        this.moveDownTimer = 5;
     }
 
-    
-
     move(){ //controls movement of the enemy
-        if (this.x >= this.canvas.width - 50 ) { //need to fix this. It switches everytime need sto switch once and run
-            this.x = this.canvas.width - 51;
-            this.velocity = -this.velocity //if the enemy is at the right wall, stop moving right
-        }else if(this.x <= 0){ //if the enemy is at the left wall, stop moving left
-            this.x = 1;
-            this.velocity = -this.velocity //if the enemy is at the left wall, stop moving left
-        }
-
         if(this.moveDownTimer > 0){ //if the enemy is not at the bottom of the screen, move down
             this.moveDown();
             return;    
         }
 
-        if(this.velocity >0){
+        if(this.velocity > 0){
+            this.rightWallCollision();
+            this.leftWallCollision();
             this.moveRight();
         }
         else{
+            this.rightWallCollision();
+            this.leftWallCollision();
             this.moveLeft();
         }
     }
@@ -38,7 +32,7 @@ export class Enemy {
     }
     
     moveLeft(){
-        this.x -= this.velocity;
+        this.x += this.velocity;
     }
 
     moveDown(){
@@ -46,6 +40,24 @@ export class Enemy {
             this.y += 5;
     }
 
+    rightWallCollision(){ //check for right wall collision
+        if(this.x >= this.canvas.width - 50){ //if the enemy is at the right wall, move left
+            this.x = this.canvas.width - 55;
+            this.velocity = -this.velocity; //change direction of movement
+            this.resetMoveDownTimer(); //reset the move down timer
+        }
+    }
+    leftWallCollision(){ //check for left wall collision
+        if(this.x <= 0){ //if the enemy is at the left wall, move right
+            this.x = 5;
+            this.velocity = -this.velocity; //change direction of movement
+            this.resetMoveDownTimer(); //reset the move down timer
+        }
+    }
+
+    resetMoveDownTimer(){
+        this.moveDownTimer = 5; //reset the move down timer
+    }
     shoot(){ //controls how the enemy shoots
 
     }
