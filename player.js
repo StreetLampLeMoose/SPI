@@ -71,8 +71,8 @@ export class Player {
         if(this.x <= 0){
             this.x = 0;
         }
-        if(this.x >= this.canvas.width){
-            this.x = this.canvas.width;
+        if(this.x >= this.canvas.width-50){
+            this.x = this.canvas.width-50;
         }
     }
     move(){
