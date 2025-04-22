@@ -1,5 +1,4 @@
 //this module will control the behavior of the player
-import PlayerBulletController from "./playerBulletController.js";
 export class Player {
     right = false;
     left = false;
