@@ -8,7 +8,7 @@ export class Enemy {
         this.velocity = velocity;
         this.moveDownTimer = 5;
     }
-
+            
     move(){ //controls movement of the enemy
         if(this.moveDownTimer > 0){ //if the enemy is not at the bottom of the screen, move down
             this.moveDown();

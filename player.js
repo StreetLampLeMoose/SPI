@@ -1,10 +1,12 @@
 //this module will control the behavior of the player
+import PlayerBulletController from "./playerBulletController.js";
 export class Player {
     right = false;
     left = false;
     shoot = false;
    
-    constructor(canvas,velocity,playerBullet){
+    constructor(canvas,velocity,PlayerBulletController){
+        this.PlayerBulletController = PlayerBulletController;
         this.canvas = canvas;
         this.x = canvas.width/2;
         this.y = canvas.height - 50; 
@@ -15,6 +17,7 @@ export class Player {
         document.addEventListener("keyup",this.keyUp);
     }
 
+    
 //key event handlers
     keyDown(event){
         if (event.code == "ArrowRight"){
@@ -63,7 +66,8 @@ export class Player {
 //shooting handler
     handleShoot(){
         if(this.shoot == true){
-            this.playerBullet(this.x,this.y);
+            this.PlayerBulletController.shoot(this.x + 25, this.y); //shoots the bullet from the player position
+            this.shoot = false; //sets the shoot variable to false to prevent multiple bullets from being shot at once
         }
     }
 //wall collision handler

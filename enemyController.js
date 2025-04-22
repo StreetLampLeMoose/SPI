@@ -23,13 +23,5 @@ export class enemyController {
             enemy.move(); //move the enemy
         });
     };
-
-    collisionWithWalls(){ //check for wall collisions
-    };
-    collisionWithPlayer(){ //check for player collisions
-    };
-
-    collisionWithPlayerBullet(){ //check for player bullet collisions
-
-    };
+    
 }
