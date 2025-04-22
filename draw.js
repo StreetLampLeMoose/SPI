@@ -11,14 +11,16 @@ export default function draw() {
     drawEnemyBullets();
     requestAnimationFrame(draw); //calls the draw function again to create an animation loop
     };
-
+    const enemyStartPositions = [
+        { x: 50, y: 50 }
+    ]
     
     
     const game = document.getElementById("game");
     const ctx = game.getContext("2d");
     const playerBulletController = new PlayerBulletController(game, "blue") //creates a new player bullet controller object
     const player = new Player(game, 5, playerBulletController); //creates new player object
-    const enemies= new enemyController(game); //creates a new enemy controller object
+    const enemies= new enemyController(game, enemyStartPositions); //creates a new enemy controller object
     export function gameStart(){ //starts the game, draws initial player and enemy positions
         enemies.enemiesStart(); //draws the enemies on the screen
     };
