@@ -1,8 +1,17 @@
 //this module will draw the game 
 import { enemyController } from "./enemyController.js";
+import handleCollisions from "./handleCollisions.js";
 import {Player} from "./player.js";
 import PlayerBulletController from "./playerBulletController.js";
-let playerBullet = 1;
+const enemyStartPositions = [
+    { x: 50, y: 50 }
+]
+const game = document.getElementById("game");
+const ctx = game.getContext("2d");
+const playerBulletController = new PlayerBulletController(game, "blue") //creates a new player bullet controller object
+const player = new Player(game, 5, playerBulletController); //creates new player object
+const enemies= new enemyController(game, enemyStartPositions); //creates a new enemy controller object
+const collisionHandler = new handleCollisions(player, enemies, playerBulletController);
 
 export default function draw() {
     drawPlayer();
@@ -10,20 +19,17 @@ export default function draw() {
     drawPlayerBullets();
     drawEnemyBullets();
     requestAnimationFrame(draw); //calls the draw function again to create an animation loop
-    };
-    const enemyStartPositions = [
-        { x: 50, y: 50 }
-    ]
+};
+    collisions(); //checks for collisions between the enemies and player bullets
     
     
-    const game = document.getElementById("game");
-    const ctx = game.getContext("2d");
-    const playerBulletController = new PlayerBulletController(game, "blue") //creates a new player bullet controller object
-    const player = new Player(game, 5, playerBulletController); //creates new player object
-    const enemies= new enemyController(game, enemyStartPositions); //creates a new enemy controller object
+    
+    
     export function gameStart(){ //starts the game, draws initial player and enemy positions
         enemies.enemiesStart(); //draws the enemies on the screen
     };
+
+     //creates a new handle collisions object
 
     function drawPlayer(){
         const playerImage= new Image(); //creates a new player image object
@@ -61,3 +67,9 @@ export default function draw() {
             ctx.fillRect(bullet.x, bullet.y, bullet.width, bullet.height); //draws the bullet at the new position
         }); 
     };
+
+    function collisions(){
+        collisionHandler.playerCollideWithEnemy(); //checks for collisions between the player and enemies
+        collisionHandler.playerCollideWithEnemyBullet(); //checks for collisions between the player and enemy bullets
+        collisionHandler.enemyCollideWithPlayerBullet(); //checks for collisions between the enemies and player bullets
+    }

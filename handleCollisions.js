@@ -1,11 +1,12 @@
 //this will handle the collisions between bullets and the player and enemies
 
-export default class handleCollisions(Player, enemyController, playerBulletController){
+export default class handleCollisions{
 
     constructor(player, enemyController, playerBulletController){
-        this.player = Player; //player object
+        this.player = player; //player object
         this.enemyController = enemyController; //enemy controller object
         this.playerBulletController = playerBulletController; //player bullet controller object
+        //this.enemyBulletController = enemyBulletController; 
     }
 
     playerCollideWithEnemy(){
@@ -13,6 +14,11 @@ export default class handleCollisions(Player, enemyController, playerBulletContr
     }
     playerCollideWithEnemyBullet(){
         //check if the player has collided with an enemy bullet
+       this.playerBulletController.bullets.forEach((bullet) => {
+            this.enemyController.enemies.forEach((enemy) => {
+                
+            })
+       })
     }
     enemyCollideWithPlayerBullet(){
         //check if an enemy has collided with a player bullet
