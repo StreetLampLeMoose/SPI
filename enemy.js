@@ -7,6 +7,8 @@ export class Enemy {
         this.canvas = canvas;
         this.velocity = velocity;
         this.moveDownTimer = 5;
+        this.width = 50;
+        this.height = 75;
     }
             
     move(){ //controls movement of the enemy

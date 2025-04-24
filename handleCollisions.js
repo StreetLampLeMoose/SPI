@@ -17,7 +17,7 @@ export default class handleCollisions{
         
     }
     
-    enemyCollideWithPlayerBullet(){
+    enemyCollideWithPlayerBullet(){ //BULLET AND ENEMY DONT HAVE WIDTH AND HEIGHT PROPERTIES
         //check if an enemy has collided with a player bullet
         this.playerBulletController.bullets.forEach((bullet, bulletIndex) => {
             this.enemyController.enemies.forEach((enemy, enemyIndex) => {
