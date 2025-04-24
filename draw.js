@@ -18,9 +18,10 @@ export default function draw() {
     drawEnemies();
     drawPlayerBullets();
     drawEnemyBullets();
+    collisions();
     requestAnimationFrame(draw); //calls the draw function again to create an animation loop
 };
-    collisions(); //checks for collisions between the enemies and player bullets
+     //checks for collisions between the enemies and player bullets
     
     
     
