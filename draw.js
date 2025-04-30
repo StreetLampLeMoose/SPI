@@ -16,6 +16,9 @@ const blockEnemyPositions = [
     { x: 350, y: 50 },
     { x: 400, y: 50 }
 ]
+
+
+
 let enemyType = "continuous"; //type of enemy movement, can be continuous or block
 let enemyType2 = "block";
 const game = document.getElementById("game");

@@ -10,7 +10,8 @@ export class enemyController {
         this.enemyType = enemyType; //type of enemy 
         this.rightSideOfBlock = 400; //should assign these based on the array of enemies
         this.leftSideOfBlock = 50;
-        this.moveDownTimer = 5;                
+        this.moveDownTimer = 5;
+        this.blockMoveDirection = 1; //1 is right, -1 is left                
     }
     
     enemiesStart(){ //sets the start position of the enemies
@@ -25,8 +26,8 @@ export class enemyController {
                 enemy.move(); //move the enemy
             });    
         }else if(this.enemyType =="block"){
-            this.rightSideOfBlock = Math.max(...this.enemies.map(enemy => enemy.x + enemy.width));
-            this.leftSideOfBlock = Math.min(...this.enemies.map(enemy => enemy.x));
+            //this.rightSideOfBlock = Math.max(...this.enemies.map(enemy => enemy.x + enemy.width)); 
+           // this.leftSideOfBlock = Math.min(...this.enemies.map(enemy => enemy.x));
             console.log(this.rightSideOfBlock, this.leftSideOfBlock);
             this.enemyBlockMove();
         }
@@ -37,26 +38,31 @@ export class enemyController {
         //Move a block of enemies
         //if the far right side of the block is at the right wall, reset the move down timer, change the velocity sign, and move down
         //if the far left side of the block is at the left wall, reset the move down timer, change velocty sign,  and move down
-        this.enemies.forEach((enemy) => {
+        this.rightSideOfBlock = Math.max(...this.enemies.map(enemy => enemy.x + enemy.width));
+        this.leftSideOfBlock = Math.min(...this.enemies.map(enemy => enemy.x));
+        
             if(this.moveDownTimer > 0){
-                enemy.moveDown();
+                this.enemies.forEach((enemy) => {
+                    enemy.moveDown(); //move the enemy down
+                });
                 this.moveDownTimer--;
                 return;
             }
-            if(this.rightSideOfBlock >= this.canvas.width - 50){
+            if(this.rightSideOfBlock >= this.canvas.width){
                 this.moveDownTimer = 5;
-                enemy.velocity = -enemy.velocity; //change direction of movement
+                this.blockMoveDirection =-1; //change direction of movement
             }
             if(this.leftSideOfBlock <= 0){
                 this.moveDownTimer = 5;
-                enemy.velocity = -enemy.velocity; //change direction of movement
+                this.blockMoveDirection = 1; //change direction of movement
             }
-            if(enemy.velocity > 0){
-                enemy.moveRight();
-            }
-            if(enemy.velocity < 0){
-                enemy.moveLeft();
-            }
-        }); //placeholder
+            this.enemies.forEach((enemy)=>{
+                if(this.blockMoveDirection > 0){
+                    enemy.blockMoveRight();
+                }
+                if(this.blockMoveDirection < 0){
+                    enemy.blockMoveLeft();
+                }
+            }) //placeholder
     }
 }

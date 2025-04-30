@@ -37,6 +37,15 @@ export class Enemy {
         this.x += this.velocity;
     }
 
+    blockMoveLeft(){
+        this.x -= this.velocity; //move the enemy left
+    }
+
+    blockMoveRight(){
+        this.x += this.velocity; //move the enemy right
+    }
+
+
     moveDown(){
             this.moveDownTimer--;
             this.y += 5;
