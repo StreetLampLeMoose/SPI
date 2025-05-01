@@ -3,10 +3,10 @@ import {Enemy} from "./enemy.js";
 
 
 export class enemyController {
-    constructor(canvas, enemyPositions, enemyType){
+    constructor(canvas, enemyPositions, enemyType, enemyBulletController){
         this.canvas = canvas;
         this.enemies = enemyPositions; //array of enemy positions
-        this.enemyBullet = 1;
+        this.enemyBulletController = enemyBulletController;
         this.enemyType = enemyType; //type of enemy 
         this.rightSideOfBlock = 400; //should assign these based on the array of enemies
         this.leftSideOfBlock = 50;
@@ -16,7 +16,7 @@ export class enemyController {
     
     enemiesStart(){ //sets the start position of the enemies
         this.enemies = this.enemies.map((enemy) => {
-            return new Enemy(this.canvas, 5, this.enemyBullet, enemy.x, enemy.y);
+            return new Enemy(this.canvas, 5, this.enemyBulletController, enemy.x, enemy.y);
         });
     };
 

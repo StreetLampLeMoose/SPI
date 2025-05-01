@@ -1,7 +1,7 @@
 //This module will control the behavior (position, gun firing, etc) of an enemy player
 export class Enemy {
 
-    constructor(canvas,velocity,enemyBullet,x,y){
+    constructor(canvas,velocity,enemyBulletController,x,y){
         this.x = x;
         this.y= y;
         this.canvas = canvas;
@@ -9,8 +9,12 @@ export class Enemy {
         this.moveDownTimer = 5;
         this.width = 50;
         this.height = 75;
+        this.shootTimer = 1000 * Math.random();
+        this.enemyBulletController = enemyBulletController; //creates a new enemy bullet controller object
     }
-            
+    
+    
+
     move(){ //controls movement of the enemy
         if(this.moveDownTimer > 0){ //if the enemy is not at the bottom of the screen, move down
             this.moveDown();
@@ -27,6 +31,11 @@ export class Enemy {
             this.leftWallCollision();
             this.moveLeft();
         }
+        this.shootTimer--;
+        if(this.shootTimer <= 0){ //if the shoot timer is less than or equal to 0, shoot
+            this.shoot(); //shoot the bullet
+             //reset the shoot timer
+        }
     }
 
     moveRight(){
@@ -38,11 +47,19 @@ export class Enemy {
     }
 
     blockMoveLeft(){
-        this.x -= this.velocity; //move the enemy left
+        this.x -= this.velocity;
+        this.shootTimer--;
+        if(this.shootTimer <= 0){ //if the shoot timer is less than or equal to 0, shoot
+            this.shoot(); //shoot the bullet
+        } 
     }
 
     blockMoveRight(){
-        this.x += this.velocity; //move the enemy right
+        this.x += this.velocity;
+        this.shootTimer--;
+        if(this.shootTimer <= 0){ //if the shoot timer is less than or equal to 0, shoot
+            this.shoot(); //shoot the bullet  
+        } 
     }
 
 
@@ -70,6 +87,7 @@ export class Enemy {
         this.moveDownTimer = 5; //reset the move down timer
     }
     shoot(){ //controls how the enemy shoots
-
+        this.enemyBulletController.shoot(this.x+25, this.y);
+        this.shootTimer = 50;
     }
 }
