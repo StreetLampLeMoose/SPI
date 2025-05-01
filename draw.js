@@ -39,7 +39,17 @@ export default function draw() {
     requestAnimationFrame(draw); //calls the draw function again to create an animation loop
 };
      //checks for collisions between the enemies and player bullets
-    
+    export function gameStartWaiting(){
+        ctx.fillText("Click to start the game", game.width/2, game.height/2); //draws the text on the screen
+        game.addEventListener("click", () => { //waits for the user to click the game to start the game
+            game.removeEventListener("click", gameStartWaiting);
+            ctx.clearRect(0, 0, game.width, game.height) //removes the event listener after the game starts
+            gameStart(); //starts the game
+            draw(); //starts the draw loop
+        });
+    }
+
+
     export function gameStart(){ //starts the game, draws initial player and enemy positions
         enemies.enemiesStart();
         blockEnemies.enemiesStart(); //draws the enemies on the screen
