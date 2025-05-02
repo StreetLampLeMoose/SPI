@@ -33,7 +33,7 @@ export class Enemy {
         }
         this.shootTimer--;
         if(this.shootTimer <= 0){ //if the shoot timer is less than or equal to 0, shoot
-            this.shoot(); //shoot the bullet
+            //this.shoot(); //shoot the bullet
              //reset the shoot timer
         }
     }
@@ -50,7 +50,7 @@ export class Enemy {
         this.x -= this.velocity;
         this.shootTimer--;
         if(this.shootTimer <= 0){ //if the shoot timer is less than or equal to 0, shoot
-            this.shoot(); //shoot the bullet
+            //this.shoot(); //shoot the bullet
         } 
     }
 
@@ -58,7 +58,7 @@ export class Enemy {
         this.x += this.velocity;
         this.shootTimer--;
         if(this.shootTimer <= 0){ //if the shoot timer is less than or equal to 0, shoot
-            this.shoot(); //shoot the bullet  
+           // this.shoot(); //shoot the bullet  
         } 
     }
 

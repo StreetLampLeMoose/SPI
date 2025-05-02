@@ -11,7 +11,10 @@ export class enemyController {
         this.rightSideOfBlock = 400; //should assign these based on the array of enemies
         this.leftSideOfBlock = 50;
         this.moveDownTimer = 5;
-        this.blockMoveDirection = 1; //1 is right, -1 is left                
+        this.blockMoveDirection = 1; //1 is right, -1 is left        
+        this.shootTimer = 10
+        this.enemyLength = this.enemies.length; //get the length of the enemies array  
+        this.randomEnemyIndex = Math.floor(Math.random()*this.enemyLength)       
     }
     
     enemiesStart(){ //sets the start position of the enemies
@@ -21,6 +24,7 @@ export class enemyController {
     };
 
     enemyMove(){ //continuous move left and right
+        this.shootTimer--;
         if(this.enemyType == "continuous"){
             this.enemies.forEach((enemy) => {
                 enemy.move(); //move the enemy
@@ -30,6 +34,17 @@ export class enemyController {
            // this.leftSideOfBlock = Math.min(...this.enemies.map(enemy => enemy.x));
             console.log(this.rightSideOfBlock, this.leftSideOfBlock);
             this.enemyBlockMove();
+        }
+        if(this.shootTimer <= 0){ //if the shoot timer is less than or equal to 0, shoot
+            this.shootTimer = 50; //reset the shoot timer
+            //this.enemies[0].shoot(); //one enemy shoots a bullet
+            this.enemyLength = this.enemies.length; //get the length of the enemies array
+            if(this.enemyLength > 1){ //if there is more than one enemy, shoot a bullet from the last enemy
+                this.randomEnemyIndex = Math.floor(Math.random()*this.enemyLength); //random enemy shoots a bullet
+                this.enemies[this.randomEnemyIndex].shoot(); //shoot a bullet from the random enemy
+            }else if (this.enemyLength == 1){ //if there is only one
+                this.enemies[0].shoot(); //if there is only one enemy, shoot a bullet from that enemy
+            }
         }
     
 }
