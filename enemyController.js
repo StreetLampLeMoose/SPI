@@ -30,14 +30,10 @@ export class enemyController {
                 enemy.move(); //move the enemy
             });    
         }else if(this.enemyType =="block"){
-            //this.rightSideOfBlock = Math.max(...this.enemies.map(enemy => enemy.x + enemy.width)); 
-           // this.leftSideOfBlock = Math.min(...this.enemies.map(enemy => enemy.x));
-            console.log(this.rightSideOfBlock, this.leftSideOfBlock);
             this.enemyBlockMove();
         }
         if(this.shootTimer <= 0){ //if the shoot timer is less than or equal to 0, shoot
             this.shootTimer = 50; //reset the shoot timer
-            //this.enemies[0].shoot(); //one enemy shoots a bullet
             this.enemyLength = this.enemies.length; //get the length of the enemies array
             if(this.enemyLength > 1){ //if there is more than one enemy, shoot a bullet from the last enemy
                 this.randomEnemyIndex = Math.floor(Math.random()*this.enemyLength); //random enemy shoots a bullet
@@ -55,7 +51,6 @@ export class enemyController {
         //if the far left side of the block is at the left wall, reset the move down timer, change velocty sign,  and move down
         this.rightSideOfBlock = Math.max(...this.enemies.map(enemy => enemy.x + enemy.width));
         this.leftSideOfBlock = Math.min(...this.enemies.map(enemy => enemy.x));
-        
             if(this.moveDownTimer > 0){
                 this.enemies.forEach((enemy) => {
                     enemy.moveDown(); //move the enemy down
@@ -78,6 +73,5 @@ export class enemyController {
                 if(this.blockMoveDirection < 0){
                     enemy.blockMoveLeft();
                 }
-            }) //placeholder
-    }
+            }) 
 }
