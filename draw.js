@@ -27,8 +27,8 @@ const enemyBulletController = new EnemyBulletController(game, "red"); //creates 
 const player = new Player(game, 5, playerBulletController); //creates new player object
 const enemies= new enemyController(game, enemyStartPositions, enemyType , enemyBulletController); //creates a new enemy controller object
 const blockEnemies = new enemyController(game, blockEnemyPositions, enemyType2,enemyBulletController); //creates a new enemy controller object
-const collisionHandler = new handleCollisions(player, enemies, playerBulletController);
-const blockEnemyCollisionHandler = new handleCollisions(player, blockEnemies, playerBulletController); //creates a new collision handler object
+const collisionHandler = new handleCollisions(player, enemies, playerBulletController,enemyBulletController);
+const blockEnemyCollisionHandler = new handleCollisions(player, blockEnemies, playerBulletController, enemyBulletController); //creates a new collision handler object
 
 const playerImage = new Image();
 playerImage.src = "./img/player.png";

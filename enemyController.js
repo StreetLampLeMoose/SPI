@@ -74,4 +74,4 @@ export class enemyController {
                     enemy.blockMoveLeft();
                 }
             }) 
-}
+    }}

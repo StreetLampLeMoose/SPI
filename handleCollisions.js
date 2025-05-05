@@ -2,22 +2,35 @@
 
 export default class handleCollisions{
 
-    constructor(player, enemyController, playerBulletController){
+    constructor(player, enemyController, playerBulletController , enemyBulletController){
         this.player = player; //player object
         this.enemyController = enemyController; //enemy controller object
         this.playerBulletController = playerBulletController; //player bullet controller object
-        //this.enemyBulletController = enemyBulletController; 
+        this.enemyBulletController = enemyBulletController; 
     }
 
-    playerCollideWithEnemy(){
-        //check if the player has collided with an enemy
-    }
     playerCollideWithEnemyBullet(){
+        //check if the player has collided with an enemy
+        this.enemyBulletController.enemyBullets.forEach((bullet) => {
+            if (
+                bullet.x + bullet.width >= this.player.x && // Bullet right edge >= Player left edge
+                bullet.x <= this.player.x + this.player.width && // Bullet left edge <= Player right edge
+                bullet.y + bullet.height >= this.player.y && // Bullet bottom edge >= Player top edge
+                bullet.y <= this.player.y + this.player.height // Bullet top edge <= Player bottom edge
+            ){
+                // Remove the bullet and player
+                this.enemyBulletController.enemyBullets.splice(this.enemyBulletController.enemyBullets.indexOf(bullet), 1); // Remove bullet
+                console.log("Player collided with enemy bullet");
+                //gameOver() // Call game over function or handle player damage here
+            }
+        });
+    }
+    playerCollideWithEnemy(){
         //check if the player has collided with an enemy bullet
         
     }
     
-    enemyCollideWithPlayerBullet(){ //BULLET AND ENEMY DONT HAVE WIDTH AND HEIGHT PROPERTIES
+    enemyCollideWithPlayerBullet(){ 
         //check if an enemy has collided with a player bullet
         this.playerBulletController.bullets.forEach((bullet, bulletIndex) => {
             this.enemyController.enemies.forEach((enemy, enemyIndex) => {

@@ -14,6 +14,8 @@ export class Player {
         this.keyUp = this.keyUp.bind(this);
         document.addEventListener("keydown",this.keyDown);
         document.addEventListener("keyup",this.keyUp);
+        this.width = 50; //width of the player
+        this.height = 50; //height of the player
     }
 
     
