@@ -35,7 +35,7 @@ export class enemyController {
         if(this.shootTimer <= 0){ //if the shoot timer is less than or equal to 0, shoot
             this.shootTimer = 50; //reset the shoot timer
             this.enemyLength = this.enemies.length; //get the length of the enemies array
-            if(this.enemyLength > 1){ //if there is more than one enemy, shoot a bullet from the last enemy
+            if(this.enemyLength > 1){ //if there is than one enemy, shoot a bullet from a random enemy
                 this.randomEnemyIndex = Math.floor(Math.random()*this.enemyLength); //random enemy shoots a bullet
                 this.enemies[this.randomEnemyIndex].shoot(); //shoot a bullet from the random enemy
             }else if (this.enemyLength == 1){ //if there is only one

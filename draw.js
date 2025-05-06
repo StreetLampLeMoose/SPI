@@ -17,7 +17,7 @@ const blockEnemyPositions = [
     { x: 350, y: 50 },
     { x: 400, y: 50 }
 ]
-
+let isGameOver = false;
 let enemyType = "continuous"; //type of enemy movement, can be continuous or block
 let enemyType2 = "block";
 const game = document.getElementById("game");
@@ -45,31 +45,69 @@ enemyImage.onload = () => {
 
 export default function draw() {
     ctx.clearRect(0, 0, game.width, game.height); //clears the canvas
+    gameOver(); 
     drawPlayer();
     drawEnemies();
     drawPlayerBullets();
     drawEnemyBullets();
     collisions();
-    requestAnimationFrame(draw); //calls the draw function again to create an animation loop
+    if(!isGameOver){
+        requestAnimationFrame(draw);
+    }
+     //calls the draw function again to create an animation loop
 };
      //checks for collisions between the enemies and player bullets
     export function gameStartWaiting(){
         ctx.fillText("Click to start the game", game.width/2, game.height/2); //draws the text on the screen
-        game.addEventListener("click", () => { //waits for the user to click the game to start the game
-            game.removeEventListener("click", gameStartWaiting);
-             //removes the event listener after the game starts
-            gameStart(); //starts the game
-            draw(); //starts the draw loop
-        });
+        game.addEventListener("click", gameStart);
     }
 
 
-    export function gameStart(){ //starts the game, draws initial player and enemy positions
+    export function gameStart(){
+        game.removeEventListener("click", gameStart); //starts the game, draws initial player and enemy positions
         enemies.enemiesStart();
-        blockEnemies.enemiesStart(); //draws the enemies on the screen
+        blockEnemies.enemiesStart();
+        draw(); //draws the enemies on the screen
     };
 
+    function gameOver(){ //game over function, draws the game over screen
+        if(player.playerLives <= 0){
+            isGameOver = true; //if the player has no lives left, draw the game over screen
+            ctx.clearRect(0, 0, game.width, game.height); //clears the canvas    
+            ctx.fillText("Game Over", game.width/2, game.height/2); //draws the text on the screen
+            ctx.fillText("Click to restart", game.width/2, game.height/2 + 50); //draws the text on the screen
+            game.addEventListener("click", restartGame);
+        ;
+    }}
+
+    function restartGame () {
+        isGameOver = false;
+        resetGameState() //restarts the game loop
+        game.removeEventListener("click", restartGame);
+        enemies.enemiesStart();
+        blockEnemies.enemiesStart()
+        enemies.enemies.forEach((enemy) => {
+            enemy.velocity = 5; //sets the enemy velocity to 5
+        }) 
+        blockEnemies.enemies.forEach((enemy) => {
+            enemy.velocity = 5; //sets the enemy velocity to 5
+        }) 
+        draw();
+    } 
+
+    function gameWin(){ //game win function, draws the game win screen
+
+    }
      //creates a new handle collisions object
+
+    function resetGameState(){
+        player.playerLives = 1; //resets the player lives to 1
+        enemies.enemies = enemyStartPositions; //resets the enemies to the starting positions
+        blockEnemies.enemies = blockEnemyPositions; //resets the block enemies to the starting positions
+        playerBulletController.bullets = []; //resets the player bullets to an empty array
+        enemyBulletController.enemyBullets = []; //resets the enemy bullets to an empty array
+        isGameOver = false;
+    }   
 
     function drawPlayer(){ 
         player.move(); //moves the player

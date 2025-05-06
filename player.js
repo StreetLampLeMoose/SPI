@@ -16,6 +16,7 @@ export class Player {
         document.addEventListener("keyup",this.keyUp);
         this.width = 50; //width of the player
         this.height = 50; //height of the player
+        this.playerLives = 1 ;//number of lives the player has
     }
 
     

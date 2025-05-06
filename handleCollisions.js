@@ -6,7 +6,7 @@ export default class handleCollisions{
         this.player = player; //player object
         this.enemyController = enemyController; //enemy controller object
         this.playerBulletController = playerBulletController; //player bullet controller object
-        this.enemyBulletController = enemyBulletController; 
+        this.enemyBulletController = enemyBulletController; //enemy bullet controller object
     }
 
     playerCollideWithEnemyBullet(){
@@ -18,10 +18,10 @@ export default class handleCollisions{
                 bullet.y + bullet.height >= this.player.y && // Bullet bottom edge >= Player top edge
                 bullet.y <= this.player.y + this.player.height // Bullet top edge <= Player bottom edge
             ){
-                // Remove the bullet and player
+                // Remove the bullet
                 this.enemyBulletController.enemyBullets.splice(this.enemyBulletController.enemyBullets.indexOf(bullet), 1); // Remove bullet
                 console.log("Player collided with enemy bullet");
-                //gameOver() // Call game over function or handle player damage here
+                this.player.playerLives--; // Decrease player lives
             }
         });
     }
