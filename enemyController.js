@@ -14,7 +14,8 @@ export class enemyController {
         this.blockMoveDirection = 1; //1 is right, -1 is left        
         this.shootTimer = 10
         this.enemyLength = this.enemies.length; //get the length of the enemies array  
-        this.randomEnemyIndex = Math.floor(Math.random()*this.enemyLength)       
+        this.randomEnemyIndex = Math.floor(Math.random()*this.enemyLength)
+        this.stillEnemies = true; //boolean to check if there are still enemies       
     }
     
     enemiesStart(){ //sets the start position of the enemies

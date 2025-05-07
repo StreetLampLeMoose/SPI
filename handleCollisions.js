@@ -46,6 +46,9 @@ export default class handleCollisions{
                     this.enemyController.enemies.splice(enemyIndex, 1); // Remove enemy
                 }
             });
+            if(this.enemyController.enemies.length == 0){ //if there are no enemies left, set the stillEnemies to false
+                this.enemyController.stillEnemies = false; //set the stillEnemies to false
+            }
         });
     }
 }
