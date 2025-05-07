@@ -47,6 +47,7 @@ enemyImage.onload = () => {
 export default function draw() {
     ctx.clearRect(0, 0, game.width, game.height); //clears the canvas
     gameOver();
+    gameWin();
     checkIfGameWin(); 
     drawPlayer();
     drawEnemies();
@@ -56,9 +57,11 @@ export default function draw() {
     if(!isGameOver){
         requestAnimationFrame(draw);
     }
-    if(isGameWin){
-        gameWin(); //draws the game win screen
+    if(enemies.enemies.length == 0 && blockEnemies.enemies.length == 0){ //if there are no enemies left, set the stillEnemies to false
+        isGameWin = true; //set the isGameWin to true
     }
+     //draws the game win screen
+    
     
 };
      //checks for collisions between the enemies and player bullets
@@ -85,6 +88,16 @@ export default function draw() {
         ;
     }}
 
+    function gameWin(){ //game win function, draws the game win screen
+        if(isGameWin){ //if the player has no lives left, draw the game over screen
+             //if the player has no lives left, draw the game over screen
+            ctx.clearRect(0, 0, game.width, game.height); //clears the canvas    
+            ctx.fillText("You Win", game.width/2, game.height/2); //draws the text on the screen
+            ctx.fillText("Click to restart", game.width/2, game.height/2 + 50); //draws the text on the screen
+            game.addEventListener("click", restartGame);
+        }
+    }
+
     function restartGame() {
         resetGameState() //restarts the game loop
         game.removeEventListener("click", restartGame);
@@ -99,22 +112,24 @@ export default function draw() {
         draw();
     } 
 
-    function gameWin(){ //game win function, draws the game win screen
-        ctx.clearRect(0, 0, game.width, game.height); //clears the canvas    
-        ctx.fillText("You Win", game.width/2, game.height/2); //draws the text on the screen
-        ctx.fillText("Click to restart", game.width/2, game.height/2 + 50); //draws the text on the screen
-        game.addEventListener("click", restartGame);
-    }
+   
      //creates a new handle collisions object
 
     function resetGameState(){
         player.playerLives = 1; //resets the player lives to 1
-        enemies.enemies = enemyStartPositions; //resets the enemies to the starting positions
-        blockEnemies.enemies = blockEnemyPositions; //resets the block enemies to the starting positions
         playerBulletController.bullets = []; //resets the player bullets to an empty array
         enemyBulletController.enemyBullets = []; //resets the enemy bullets to an empty array
+
         isGameOver = false;
         isGameWin = false;
+
+        enemies.enemies = []; //resets the enemies to an empty array
+        blockEnemies.enemies = []; //resets the enemies to an empty array
+
+        enemies.enemies = enemyStartPositions.map((pos) => ({ x: pos.x, y: pos.y })); //resets the enemies to an empty array
+        blockEnemies.enemies = blockEnemyPositions.map((pos) => ({ x: pos.x, y: pos.y }));; //resets the enemies to an empty array
+       
+        
     }   
 
     function drawPlayer(){ 
@@ -166,7 +181,5 @@ export default function draw() {
     }
 
     function checkIfGameWin(){
-        if(enemies.enemies.length == 0 && blockEnemies.enemies.length == 0){ //if there are no enemies left, set the stillEnemies to false
-            isGameWin = true; //set the isGameWin to true
-        }
+        
     } //checks if the game is won
