@@ -48,7 +48,6 @@ export default function draw() {
     ctx.clearRect(0, 0, game.width, game.height); //clears the canvas
     gameOver();
     gameWin();
-    checkIfGameWin(); 
     drawPlayer();
     drawEnemies();
     drawPlayerBullets();
@@ -57,12 +56,8 @@ export default function draw() {
     if(!isGameOver){
         requestAnimationFrame(draw);
     }
-    if(enemies.enemies.length == 0 && blockEnemies.enemies.length == 0){ //if there are no enemies left, set the stillEnemies to false
-        isGameWin = true; //set the isGameWin to true
-    }
-     //draws the game win screen
     
-    
+        
 };
      //checks for collisions between the enemies and player bullets
     export function gameStartWaiting(){
@@ -85,12 +80,13 @@ export default function draw() {
             ctx.fillText("Game Over", game.width/2, game.height/2); //draws the text on the screen
             ctx.fillText("Click to restart", game.width/2, game.height/2 + 50); //draws the text on the screen
             game.addEventListener("click", restartGame);
-        ;
     }}
 
+
+
     function gameWin(){ //game win function, draws the game win screen
-        if(isGameWin){ //if the player has no lives left, draw the game over screen
-             //if the player has no lives left, draw the game over screen
+        if(enemies.stillEnemies == false && blockEnemies.stillEnemies == false){ //if the player has no lives left, draw the game over screen
+            isGameOver = true //if the player has no lives left, draw the game over screen
             ctx.clearRect(0, 0, game.width, game.height); //clears the canvas    
             ctx.fillText("You Win", game.width/2, game.height/2); //draws the text on the screen
             ctx.fillText("Click to restart", game.width/2, game.height/2 + 50); //draws the text on the screen
@@ -100,13 +96,16 @@ export default function draw() {
 
     function restartGame() {
         resetGameState() //restarts the game loop
+        
         game.removeEventListener("click", restartGame);
         enemies.enemiesStart();
         blockEnemies.enemiesStart();
-        enemies.enemies.forEach((enemy) => {
+        enemies.stillEnemies = true; //sets the stillEnemies to true
+        blockEnemies.stillEnemies = true; //sets the stillEnemies to true
+        enemies.enemyObjects.forEach((enemy) => {
             enemy.velocity = 5; //sets the enemy velocity to 5
         }) 
-        blockEnemies.enemies.forEach((enemy) => {
+        blockEnemies.enemyObjects.forEach((enemy) => {
             enemy.velocity = 5; //sets the enemy velocity to 5
         }) 
         draw();
@@ -123,12 +122,11 @@ export default function draw() {
         isGameOver = false;
         isGameWin = false;
 
-        enemies.enemies = []; //resets the enemies to an empty array
-        blockEnemies.enemies = []; //resets the enemies to an empty array
+        enemies.enemyObjects = []; // Clear the enemy objects array
+        blockEnemies.enemyObjects = []; // Clear the block enemy objects array
 
-        enemies.enemies = enemyStartPositions.map((pos) => ({ x: pos.x, y: pos.y })); //resets the enemies to an empty array
-        blockEnemies.enemies = blockEnemyPositions.map((pos) => ({ x: pos.x, y: pos.y }));; //resets the enemies to an empty array
-       
+        enemies.enemyPositions = enemyStartPositions; //resets the enemies to an empty array
+        blockEnemies.enemyPositions = blockEnemyPositions; //resets the enemies to an empty array       
         
     }   
 
@@ -142,10 +140,10 @@ export default function draw() {
         enemies.enemyMove(); //moves the enemies
         blockEnemies.enemyMove(); //moves the block enemies
         //draws the enemy image when it is loaded
-            enemies.enemies.forEach((enemy) => { //for each enemy, draw the enemy image at the new position
+            enemies.enemyObjects.forEach((enemy) => { //for each enemy, draw the enemy image at the new position
                 ctx.drawImage(enemyImage, enemy.x, enemy.y); //draws the enemy image at the new position
             });
-            blockEnemies.enemies.forEach((enemy) => { //for each enemy, draw the enemy image at the new position
+            blockEnemies.enemyObjects.forEach((enemy) => { //for each enemy, draw the enemy image at the new position
                 ctx.drawImage(enemyImage, enemy.x, enemy.y); //draws the enemy image at the new position
             });
         //draws the enemy image at the new position

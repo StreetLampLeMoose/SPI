@@ -20,7 +20,6 @@ export default class handleCollisions{
             ){
                 // Remove the bullet
                 this.enemyBulletController.enemyBullets.splice(this.enemyBulletController.enemyBullets.indexOf(bullet), 1); // Remove bullet
-                console.log("Player collided with enemy bullet");
                 this.player.playerLives--; // Decrease player lives
             }
         });
@@ -33,7 +32,7 @@ export default class handleCollisions{
     enemyCollideWithPlayerBullet(){ 
         //check if an enemy has collided with a player bullet
         this.playerBulletController.bullets.forEach((bullet, bulletIndex) => {
-            this.enemyController.enemies.forEach((enemy, enemyIndex) => {
+            this.enemyController.enemyObjects.forEach((enemy, enemyIndex) => {
                 // Check for collision
                 if (
                     bullet.x + bullet.width >= enemy.x && // Bullet right edge >= Enemy left edge
@@ -43,10 +42,10 @@ export default class handleCollisions{
                 ) {
                     // Remove the bullet and enemy
                     this.playerBulletController.bullets.splice(bulletIndex, 1); // Remove bullet
-                    this.enemyController.enemies.splice(enemyIndex, 1); // Remove enemy
+                    this.enemyController.enemyObjects.splice(enemyIndex, 1); // Remove enemy
                 }
             });
-            if(this.enemyController.enemies.length == 0){ //if there are no enemies left, set the stillEnemies to false
+            if(this.enemyController.enemyObjects.length == 0){ //if there are no enemies left, set the stillEnemies to false
                 this.enemyController.stillEnemies = false; //set the stillEnemies to false
             }
         });
