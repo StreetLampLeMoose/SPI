@@ -23,6 +23,7 @@ export class enemyController { //should probably change the start so that it ass
         this.enemyObjects = this.enemyPositions.map((enemy) => {
             return new Enemy(this.canvas, 5, this.enemyBulletController, enemy.x, enemy.y);
         });
+        this.stillEnemies = true; //set the stillEnemies to true
     };
 
     enemyMove(){ //continuous move left and right

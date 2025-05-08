@@ -100,8 +100,6 @@ export default function draw() {
         game.removeEventListener("click", restartGame);
         enemies.enemiesStart();
         blockEnemies.enemiesStart();
-        enemies.stillEnemies = true; //sets the stillEnemies to true
-        blockEnemies.stillEnemies = true; //sets the stillEnemies to true
         enemies.enemyObjects.forEach((enemy) => {
             enemy.velocity = 5; //sets the enemy velocity to 5
         }) 
