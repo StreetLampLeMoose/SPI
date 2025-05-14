@@ -15,19 +15,53 @@ const blockEnemyPositions = [
     { x: 250, y: 50 },
     { x: 300, y: 50 },
     { x: 350, y: 50 },
-    { x: 400, y: 50 }
+    { x: 400, y: 50 }, 
+    { x: 50, y: 100 },
+    { x: 100, y: 100 },
+    { x: 150, y: 100 },
+    { x: 200, y: 100 },
+    { x: 250, y: 100 },
+    { x: 300, y: 100 },
+    { x: 350, y: 100 },
+    { x: 400, y: 100 }, 
+    { x: 50, y: 150 },
+    { x: 100, y: 150 },
+    { x: 150, y: 150 },
+    { x: 200, y: 150 },
+    { x: 250, y: 150 },
+    { x: 300, y: 150 },
+    { x: 350, y: 150 },
+    { x: 400, y: 150 },
+    { x: 50, y: 200 },
+    { x: 100, y: 200 },
+    { x: 150, y: 200 },
+    { x: 200, y: 200 },
+    { x: 250, y: 200 },
+    { x: 300, y: 200 },
+    { x: 350, y: 200 },
+    { x: 400, y: 200 }, 
+    { x: 50, y: 250 },
+    { x: 100, y: 250 },
+    { x: 150, y: 250 },
+    { x: 200, y: 250 },
+    { x: 250, y: 250 },
+    { x: 300, y: 250 },
+    { x: 350, y: 250 },
+    { x: 400, y: 250 },
+
 ]
+let velocity = 1;
 let isGameOver = false;
-let isGameWin = false; //boolean to check if the game is won
 let enemyType = "continuous"; //type of enemy movement, can be continuous or block
 let enemyType2 = "block";
+let shootTimer = 500; //timer for shooting bullets
 const game = document.getElementById("game");
 const ctx = game.getContext("2d");
-const playerBulletController = new PlayerBulletController(game, "blue");
+const playerBulletController = new PlayerBulletController(game, "blue",velocity);
 const enemyBulletController = new EnemyBulletController(game, "red"); //creates a new player bullet controller object
-const player = new Player(game, 5, playerBulletController); //creates new player object
-const enemies= new enemyController(game, enemyStartPositions, enemyType , enemyBulletController); //creates a new enemy controller object
-const blockEnemies = new enemyController(game, blockEnemyPositions, enemyType2,enemyBulletController); //creates a new enemy controller object
+const player = new Player(game, velocity, playerBulletController); //creates new player object
+const enemies= new enemyController(game, enemyStartPositions, enemyType , enemyBulletController, shootTimer); //creates a new enemy controller object
+const blockEnemies = new enemyController(game, blockEnemyPositions, enemyType2,enemyBulletController, shootTimer); //creates a new enemy controller object
 const collisionHandler = new handleCollisions(player, enemies, playerBulletController,enemyBulletController);
 const blockEnemyCollisionHandler = new handleCollisions(player, blockEnemies, playerBulletController, enemyBulletController); //creates a new collision handler object
 
@@ -68,8 +102,8 @@ export default function draw() {
 
     export function gameStart(){
         game.removeEventListener("click", gameStart); //starts the game, draws initial player and enemy positions
-        enemies.enemiesStart();
-        blockEnemies.enemiesStart();
+        enemies.enemiesStart(velocity);
+        blockEnemies.enemiesStart(velocity);
         draw(); //draws the enemies on the screen
     };
 
@@ -98,13 +132,13 @@ export default function draw() {
         resetGameState() //restarts the game loop
         
         game.removeEventListener("click", restartGame);
-        enemies.enemiesStart();
-        blockEnemies.enemiesStart();
+        enemies.enemiesStart(velocity);
+        blockEnemies.enemiesStart(velocity);
         enemies.enemyObjects.forEach((enemy) => {
-            enemy.velocity = 5; //sets the enemy velocity to 5
+            enemy.velocity = velocity; //sets the enemy velocity to 5
         }) 
         blockEnemies.enemyObjects.forEach((enemy) => {
-            enemy.velocity = 5; //sets the enemy velocity to 5
+            enemy.velocity = velocity; //sets the enemy velocity to 5
         }) 
         draw();
     } 
@@ -118,7 +152,6 @@ export default function draw() {
         enemyBulletController.enemyBullets = []; //resets the enemy bullets to an empty array
 
         isGameOver = false;
-        isGameWin = false;
 
         enemies.enemyObjects = []; // Clear the enemy objects array
         blockEnemies.enemyObjects = []; // Clear the block enemy objects array

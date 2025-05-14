@@ -3,7 +3,7 @@ import {Enemy} from "./enemy.js";
 
 
 export class enemyController { //should probably change the start so that it assigns the enemies objects to a different array. 
-    constructor(canvas, enemyPositions, enemyType, enemyBulletController){
+    constructor(canvas, enemyPositions, enemyType, enemyBulletController, shootTimer){ //canvas is the canvas object, enemyPositions is an array of enemy positions, enemyType is the type of enemy (continuous or block), enemyBulletController is the enemy bullet controller object, shootTimer is the shoot timer
         this.canvas = canvas;
         this.enemyPositions = enemyPositions; //array of enemy positions
         this.enemyBulletController = enemyBulletController;
@@ -12,16 +12,16 @@ export class enemyController { //should probably change the start so that it ass
         this.leftSideOfBlock = 50;
         this.moveDownTimer = 5;
         this.blockMoveDirection = 1; //1 is right, -1 is left        
-        this.shootTimer = 10
+        this.shootTimer = shootTimer;
         this.enemyLength = this.enemyPositions.length; //get the length of the enemies array  
         this.randomEnemyIndex = Math.floor(Math.random()*this.enemyLength)
         this.stillEnemies = true; //boolean to check if there are still enemies 
         this.enemyObjects = [];     
     }
     
-    enemiesStart(){ //sets the start position of the enemies
+    enemiesStart(velocity){ //sets the start position of the enemies
         this.enemyObjects = this.enemyPositions.map((enemy) => {
-            return new Enemy(this.canvas, 5, this.enemyBulletController, enemy.x, enemy.y);
+            return new Enemy(this.canvas, velocity, this.enemyBulletController, enemy.x, enemy.y);
         });
         this.stillEnemies = true; //set the stillEnemies to true
     };
@@ -36,7 +36,7 @@ export class enemyController { //should probably change the start so that it ass
             this.enemyBlockMove();
         }
         if(this.shootTimer <= 0){ //if the shoot timer is less than or equal to 0, shoot
-            this.shootTimer = 50; //reset the shoot timer
+            this.shootTimer = 100; //reset the shoot timer
             this.enemyLength = this.enemyObjects.length; //get the length of the enemies array
             if(this.enemyLength > 1){ //if there is than one enemy, shoot a bullet from a random enemy
                 this.randomEnemyIndex = Math.floor(Math.random()*this.enemyLength); //random enemy shoots a bullet

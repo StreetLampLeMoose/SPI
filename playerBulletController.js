@@ -2,13 +2,14 @@ import PlayerBullet from "./playerBullet.js";
 
 export default class PlayerBulletController {
     bullets = [];
-    constructor(canvas,bulletColor){
+    constructor(canvas,bulletColor,velocity){
         this.canvas = canvas;
         this.bulletColor = bulletColor;
+        this.velocity = velocity; //velocity of the bullet
     }
 
     shoot(x,y){
-        const bullet = new PlayerBullet(this.canvas, 5, x,y, this.bulletColor); //creates a new bullet object
+        const bullet = new PlayerBullet(this.canvas, this.velocity, x,y, this.bulletColor); //creates a new bullet object
         this.bullets.push(bullet); //adds the bullet to the bullets array
     }
 

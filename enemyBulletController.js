@@ -8,7 +8,7 @@ export default class EnemyBulletController {
     }
 
     shoot(x,y){
-        const bullet = new EnemyBullet(this.canvas, 5, x,y, this.bulletColor); //creates a new bullet object
+        const bullet = new EnemyBullet(this.canvas, 1, x,y, this.bulletColor); //creates a new bullet object
         this.enemyBullets.push(bullet); //adds the bullet to the bullets array
     }
 

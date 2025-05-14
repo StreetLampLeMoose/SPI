@@ -49,7 +49,7 @@ export class Enemy {
 
     moveDown(){
             this.moveDownTimer--;
-            this.y += 5;
+            this.y += this.velocity; //move the enemy down
     }
 
     rightWallCollision(){ //check for right wall collision
